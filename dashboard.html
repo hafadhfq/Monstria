@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Monstria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <!-- HEADER / NAVIGASI ATAS -->
+        <nav class="site-nav">
+            <div class="brand">
+                <div class="brand-mark">M</div>
+                <span class="brand-text">MONSTRIA</span>
+            </div>
+        </nav>
+
+        <!-- KARTU PROFIL PEMAIN -->
+        <div class="home-header-card">
+            <div class="home-player-row">
+                <!-- Avatar Pemain -->
+                <div class="home-avatar">🧙‍♂️</div>
+                
+                <!-- Nama & Info -->
+                <div>
+                    <div class="home-player-name">Summoner Hero</div>
+                    <div class="home-player-meta">Level 12 • Guild: Elite</div>
+                </div>
+
+                <!-- Mata Uang -->
+                <div class="home-currency">
+                    <div class="home-coin">💰 5.4K</div>
+                    <div class="home-gem">💎 120</div>
+                </div>
+            </div>
+
+            <!-- Status Bars (EXP & Energy) -->
+            <div class="status-bars">
+                <div class="status-bar-box">
+                    <div class="status-label-row">
+                        <span>EXP</span>
+                        <span class="status-value">450/1000</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill exp-fill" style="width: 45%;"></div>
+                    </div>
+                </div>
+                <div class="status-bar-box">
+                    <div class="status-label-row">
+                        <span>ENERGY</span>
+                        <span class="status-value">80/100</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill energy-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU GRID UTAMA -->
+        <div class="home-menu-grid">
+            <button class="home-menu-card" onclick="alert('Fitur Battle segera hadir!')">
+                <span class="home-menu-icon">⚔️</span>
+                <span class="home-menu-title">Battle</span>
+            </button>
+            
+            <button class="home-menu-card" onclick="alert('Buka halaman Summon!')">
+                <span class="home-menu-icon">✨</span>
+                <span class="home-menu-title">Summon</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Lihat Party kamu!')">
+                <span class="home-menu-icon">🛡️</span>
+                <span class="home-menu-title">Party</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Buka Inventory!')">
+                <span class="home-menu-icon">🎒</span>
+                <span class="home-menu-title">Bag</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Buka Encyclopedia!')">
+                <span class="home-menu-icon">📖</span>
+                <span class="home-menu-title">Encyclo</span>
+            </button>
+            
+            <button class="home-menu-card" onclick="alert('Fitur Shop!')">
+                <span class="home-menu-icon">🏪</span>
+                <span class="home-menu-title">Shop</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Fitur Quest!')">
+                <span class="home-menu-icon">📜</span>
+                <span class="home-menu-title">Quest</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Fitur Guild!')">
+                <span class="home-menu-icon">🏰</span>
+                <span class="home-menu-title">Guild</span>
+            </button>
+
+            <button class="home-menu-card" onclick="alert('Fitur Event!')">
+                <span class="home-menu-icon">🎉</span>
+                <span class="home-menu-title">Event</span>
+            </button>
+
+            <button class="home-menu-card" onclick="window.location.href='index.html'">
+                <span class="home-menu-icon">🚪</span>
+                <span class="home-menu-title">Logout</span>
+            </button>
+        </div>
+
+        <!-- PANEL NOTIFIKASI / INFO -->
+        <div class="notice-panel">
+            <div class="notice-title">
+                <span>PENGUMUMAN</span>
+                <span class="notice-badge">NEW</span>
+            </div>
+            <div class="notice-content">
+                Selamat datang di <strong>Monstria</strong>! Event double EXP sedang berlangsung hingga akhir minggu.
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <strong>MONSTRIA</strong>
+            <p>&copy; 2026 Monstria Game Studio.</p>
+            <div class="footer-links">
+                <a href="#">Support</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
+
