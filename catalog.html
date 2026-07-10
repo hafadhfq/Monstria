@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Monster - Monstria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <!-- Header -->
+        <nav class="site-nav">
+            <div class="brand">
+                <div class="brand-mark">M</div>
+                <span class="brand-text">MONSTRIA</span>
+            </div>
+        </nav>
+
+        <!-- Panel Utama Encyclopedia -->
+        <div class="encyclo-panel">
+            <div class="encyclo-title-bar">MONSTER CATALOG</div>
+            
+            <div class="encyclo-info">
+                Kumpulkan semua monster untuk membuka rahasia dunia Monstria!
+            </div>
+
+            <!-- Filter Elemen -->
+            <div class="encyclo-filter-group">
+                <div class="encyclo-filter-label">FILTER ELEMENT</div>
+                <div class="encyclo-filter-row">
+                    <button class="encyclo-filter-btn active">ALL</button>
+                    <button class="encyclo-filter-btn">🔥 Fire</button>
+                    <button class="encyclo-filter-btn">💧 Water</button>
+                    <button class="encyclo-filter-btn">🌿 Earth</button>
+                    <button class="encyclo-filter-btn">🌪️ Wind</button>
+                    <button class="encyclo-filter-btn">✨ Light</button>
+                    <button class="encyclo-filter-btn">🌑 Dark</button>
+                </div>
+            </div>
+
+            <!-- Grid Kartu Monster -->
+            <div class="encyclo-grid">
+                
+                <!-- Monster 1: Sudah Dimiliki (Unlocked) -->
+                <div class="encyclo-card element-fire">
+                    <span class="encyclo-monster-icon">🐉</span>
+                    <span class="tier-badge tier-R">R</span>
+                    <span class="element-badge">🔥</span>
+                </div>
+
+                <!-- Monster 2: Sudah Dimiliki -->
+                <div class="encyclo-card element-water">
+                    <span class="encyclo-monster-icon">🐢</span>
+                    <span class="tier-badge tier-U">U</span>
+                    <span class="element-badge">💧</span>
+                </div>
+
+                <!-- Monster 3: Belum Dimiliki (Locked) -->
+                <div class="encyclo-card locked">
+                    <div class="encyclo-lock">🔒</div>
+                </div>
+
+                <!-- Monster 4: Sudah Dimiliki (Epic) -->
+                <div class="encyclo-card element-light">
+                    <span class="encyclo-monster-icon">🦄</span>
+                    <span class="tier-badge tier-E">E</span>
+                    <span class="element-badge">✨</span>
+                </div>
+
+                <!-- Monster 5: Belum Dimiliki -->
+                <div class="encyclo-card locked">
+                    <div class="encyclo-lock">🔒</div>
+                </div>
+
+                <!-- Monster 6: Sudah Dimiliki -->
+                <div class="encyclo-card element-wind">
+                    <span class="encyclo-monster-icon">🦅</span>
+                    <span class="tier-badge tier-R">R</span>
+                    <span class="element-badge">🌪️</span>
+                </div>
+
+                <!-- Monster 7: Belum Dimiliki -->
+                <div class="encyclo-card locked">
+                    <div class="encyclo-lock">🔒</div>
+                </div>
+
+                <!-- Monster 8: Mythical (Sangat Langka) -->
+                <div class="encyclo-card element-dark">
+                    <span class="encyclo-monster-icon">👹</span>
+                    <span class="tier-badge tier-M">M</span>
+                    <span class="element-badge">🌑</span>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="encyclo-pagination">
+                <button class="small-wap-btn disabled">PREV</button>
+                <span class="page-info">Page 1 / 5</span>
+                <button class="small-wap-btn">NEXT</button>
+            </div>
+        </div>
+
+        <!-- Tombol Kembali ke Dashboard -->
+        <button class="btn btn-blue" onclick="window.location.href='dashboard.html'">KEMBALI KE DASHBOARD</button>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <strong>MONSTRIA</strong>
+            <p>&copy; 2026 Monstria Game Studio.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
