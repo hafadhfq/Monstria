@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Monster - Monstria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <!-- Header -->
+        <nav class="site-nav">
+            <div class="brand">
+                <div class="brand-mark">M</div>
+                <span class="brand-text">MONSTRIA</span>
+            </div>
+        </nav>
+
+        <!-- Panel Detail Monster -->
+        <div class="owned-monster-panel">
+            <div class="monster-title-bar">MONSTER DETAILS</div>
+
+            <!-- Bagian Atas: Gambar & Info Dasar -->
+            <div class="owned-card">
+                <div class="owned-art element-fire" id="monster-bg">
+                    <span id="monster-icon" style="font-size: 48px;">🐉</span>
+                </div>
+                <div class="owned-info">
+                    <div class="owned-name-row">
+                        <span class="owned-name" id="monster-name">Drako The Red</span>
+                        <span class="tier-badge tier-R" id="monster-tier">R</span>
+                    </div>
+                    <div class="owned-meta">
+                        Level: <span id="monster-level">15</span> | Element: <span id="monster-element">Fire</span>
+                    </div>
+                    <div class="owned-stars" id="monster-stars">⭐⭐⭐</div>
+                    
+                    <!-- Stats Grid -->
+                    <div class="owned-stats">
+                        <div class="owned-stat">HP<br><b id="stat-hp">1200</b></div>
+                        <div class="owned-stat">ATK<br><b id="stat-atk">350</b></div>
+                        <div class="owned-stat">DEF<br><b id="stat-def">200</b></div>
+                        <div class="owned-stat">SPD<br><b id="stat-spd">95</b></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian Skill -->
+            <div class="skill-box">
+                <div class="skill-name" id="skill-name">Flame Breath</div>
+                <div class="skill-effect" id="skill-desc">Menyerang semua musuh dengan api panas dan memberikan efek burn selama 2 turn.</div>
+                <div class="skill-level">Skill Level: 3/5</div>
+            </div>
+
+            <!-- Deskripsi Lore -->
+            <div class="info-strip">
+                "Drako adalah naga muda yang tinggal di kawah gunung berapi. Meskipun masih kecil, napasnya sudah bisa melelehkan besi."
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="owned-action-row">
+                <button class="btn btn-blue" onclick="window.location.href='party.html'">ADD TO PARTY</button>
+                <button class="btn btn-red" onclick="alert('Fitur Sell belum tersedia!')">SELL</button>
+            </div>
+        </div>
+
+        <button class="small-wap-btn" onclick="window.history.back()">⬅ KEMBALI</button>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <strong>MONSTRIA</strong>
+            <p>&copy; 2026 Monstria Game Studio.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Database Sederhana Monster (Nanti bisa diganti dengan API/Database sungguhan)
+        const monsters = {
+            "1": {
+                name: "Drako The Red",
+                icon: "🐉",
+                tier: "R",
+                tierClass: "tier-R",
+                element: "Fire",
+                elementClass: "element-fire",
+                level: 15,
+                stars: "⭐⭐⭐",
+                hp: 1200, atk: 350, def: 200, spd: 95,
+                skillName: "Flame Breath",
+                skillDesc: "Menyerang semua musuh dengan api panas dan memberikan efek burn.",
+                lore: "Drako adalah naga muda yang tinggal di kawah gunung berapi."
+            },
+            "2": {
+                name: "Aqua Turtle",
+                icon: "🐢",
+                tier: "U",
+                tierClass: "tier-U",
+                element: "Water",
+                elementClass: "element-water",
+                level: 10,
+                stars: "⭐⭐",
+                hp: 1500, atk: 150, def: 400, spd: 40,
+                skillName: "Water Shield",
+                skillDesc: "Meningkatkan defense tim sebesar 20% selama 3 turn.",
+                lore: "Kura-kura bijak yang membawa air suci dari danau terdalam."
+            },
+            "3": {
+                name: "Luna Pegasus",
+                icon: "🦄",
+                tier: "E",
+                tierClass: "tier-E",
+                element: "Light",
+                elementClass: "element-light",
+                level: 25,
+                stars: "⭐⭐⭐⭐",
+                hp: 900, atk: 500, def: 150, spd: 120,
+                skillName: "Holy Ray",
+                skillDesc: "Serangan cahaya suci yang sangat kuat terhadap elemen Dark.",
+                lore: "Makhluk mitologi yang hanya muncul saat bulan purnama."
+            }
+        };
+
+        // Fungsi untuk mengambil ID dari URL (contoh: monster-detail.html?id=1)
+        const urlParams = new URLSearchParams(window.location.search);
+        const monsterId = urlParams.get('id') || "1"; // Default ke ID 1 jika tidak ada ID
+        const data = monsters[monsterId];
+
+        if (data) {
+            // Update Tampilan HTML dengan Data
+            document.getElementById('monster-name').innerText = data.name;
+            document.getElementById('monster-icon').innerText = data.icon;
+            document.getElementById('monster-tier').innerText = data.tier;
+            document.getElementById('monster-tier').className = `tier-badge ${data.tierClass}`;
+            document.getElementById('monster-element').innerText = data.element;
+            document.getElementById('monster-level').innerText = data.level;
+            document.getElementById('monster-stars').innerText = data.stars;
+            
+            // Update Background Card sesuai elemen
+            document.getElementById('monster-bg').className = `owned-art ${data.elementClass}`;
+
+            // Update Stats
+            document.getElementById('stat-hp').innerText = data.hp;
+            document.getElementById('stat-atk').innerText = data.atk;
+            document.getElementById('stat-def').innerText = data.def;
+            document.getElementById('stat-spd').innerText = data.spd;
+
+            // Update Skill
+            document.getElementById('skill-name').innerText = data.skillName;
+            document.getElementById('skill-desc').innerText = data.skillDesc;
+        }
+    </script>
+</body>
+</html>
