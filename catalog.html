@@ -22,97 +22,33 @@
             <div class="encyclo-title-bar">MONSTER CATALOG</div>
             
             <div class="encyclo-info">
-                Temukan dan kumpulkan semua spesies monster di dunia Monstria!
+                Koleksi: <span id="collection-count">0</span>/50 Terkumpul
             </div>
 
             <!-- Filter Elemen -->
             <div class="encyclo-filter-group">
                 <div class="encyclo-filter-label">FILTER BY ELEMENT</div>
                 <div class="encyclo-filter-row">
-                    <button class="encyclo-filter-btn active">ALL</button>
-                    <button class="encyclo-filter-btn">🔥 Fire</button>
-                    <button class="encyclo-filter-btn">💧 Water</button>
-                    <button class="encyclo-filter-btn">🌿 Earth</button>
-                    <button class="encyclo-filter-btn">🌪️ Wind</button>
-                    <button class="encyclo-filter-btn">✨ Light</button>
-                    <button class="encyclo-filter-btn">🌑 Dark</button>
+                    <button class="encyclo-filter-btn active" onclick="filterMonsters('ALL')">ALL</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Fire')">🔥 Fire</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Water')">💧 Water</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Earth')">🌿 Earth</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Wind')">🌪️ Wind</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Light')">✨ Light</button>
+                    <button class="encyclo-filter-btn" onclick="filterMonsters('Dark')">🌑 Dark</button>
                 </div>
             </div>
 
-            <!-- Grid Kartu Monster (Link ke Detail) -->
-            <div class="encyclo-grid">
-                
-                <!-- Monster ID 1: Drako (Fire/Rare) -->
-                <a href="monster-detail.html?id=1" style="text-decoration:none;">
-                    <div class="encyclo-card element-fire">
-                        <span class="encyclo-monster-icon">🐉</span>
-                        <span class="tier-badge tier-R">R</span>
-                        <span class="element-badge">🔥</span>
-                    </div>
-                </a>
-
-                <!-- Monster ID 2: Aqua Turtle (Water/Uncommon) -->
-                <a href="monster-detail.html?id=2" style="text-decoration:none;">
-                    <div class="encyclo-card element-water">
-                        <span class="encyclo-monster-icon">🐢</span>
-                        <span class="tier-badge tier-U">U</span>
-                        <span class="element-badge">💧</span>
-                    </div>
-                </a>
-
-                <!-- Monster ID 3: Luna Pegasus (Light/Epic) -->
-                <a href="monster-detail.html?id=3" style="text-decoration:none;">
-                    <div class="encyclo-card element-light">
-                        <span class="encyclo-monster-icon">🦄</span>
-                        <span class="tier-badge tier-E">E</span>
-                        <span class="element-badge">✨</span>
-                    </div>
-                </a>
-
-                <!-- Monster Locked 1 -->
-                <div class="encyclo-card locked">
-                    <div class="encyclo-lock">🔒</div>
-                </div>
-
-                <!-- Monster ID 4: Zephyr (Wind/Rare) -->
-                <a href="monster-detail.html?id=4" style="text-decoration:none;">
-                    <div class="encyclo-card element-wind">
-                        <span class="encyclo-monster-icon">🦅</span>
-                        <span class="tier-badge tier-R">R</span>
-                        <span class="element-badge">🌪️</span>
-                    </div>
-                </a>
-
-                <!-- Monster Locked 2 -->
-                <div class="encyclo-card locked">
-                    <div class="encyclo-lock">🔒</div>
-                </div>
-
-                <!-- Monster ID 5: Gorok (Earth/Common) -->
-                <a href="monster-detail.html?id=5" style="text-decoration:none;">
-                    <div class="encyclo-card element-earth">
-                        <span class="encyclo-monster-icon">🦍</span>
-                        <span class="tier-badge tier-C">C</span>
-                        <span class="element-badge">🌿</span>
-                    </div>
-                </a>
-
-                <!-- Monster ID 6: Shadow Demon (Dark/Mythical) -->
-                <a href="monster-detail.html?id=6" style="text-decoration:none;">
-                    <div class="encyclo-card element-dark">
-                        <span class="encyclo-monster-icon">👹</span>
-                        <span class="tier-badge tier-M">M</span>
-                        <span class="element-badge">🌑</span>
-                    </div>
-                </a>
-
+            <!-- Grid Kartu Monster (Diisi oleh JavaScript) -->
+            <div class="encyclo-grid" id="monster-grid">
+                <!-- Monster akan muncul di sini -->
             </div>
 
             <!-- Pagination -->
             <div class="encyclo-pagination">
-                <button class="small-wap-btn disabled">PREV</button>
-                <span class="page-info">Page 1 / 3</span>
-                <button class="small-wap-btn">NEXT</button>
+                <button class="small-wap-btn" id="btn-prev" onclick="changePage(-1)">PREV</button>
+                <span class="page-info" id="page-info">Page 1 / 4</span>
+                <button class="small-wap-btn" id="btn-next" onclick="changePage(1)">NEXT</button>
             </div>
         </div>
 
@@ -126,5 +62,109 @@
         </footer>
     </div>
 
+    <script>
+        // Database 50 Monster
+        const elements = ['Fire', 'Water', 'Earth', 'Wind', 'Light', 'Dark'];
+        const icons = { 'Fire': '🔥', 'Water': '💧', 'Earth': '🌿', 'Wind': '🌪️', 'Light': '✨', 'Dark': '🌑' };
+        const emojis = ['🐉', '🐢', '🦄', '🦅', '🦍', '👹', '🐺', '🦊', '🐍', '🦂', '🦇', '🕷️', '🐙', '🦈', '🐘', '🦏', '🦁', '🐯', '🐲', '🐦'];
+        const tiers = ['C', 'U', 'R', 'E', 'L', 'M'];
+        
+        let monsters = [];
+
+        // Generate 50 Monster Data
+        for (let i = 1; i <= 50; i++) {
+            const el = elements[Math.floor(Math.random() * elements.length)];
+            const tier = tiers[Math.floor(Math.random() * tiers.length)];
+            const emoji = emojis[i % emojis.length];
+            
+            monsters.push({
+                id: i,
+                name: `Monster ${el} #${i}`,
+                icon: emoji,
+                element: el,
+                tier: tier,
+                unlocked: Math.random() > 0.3 // 70% kemungkinan terbuka
+            });
+        }
+
+        // Konfigurasi Pagination
+        let currentPage = 1;
+        const itemsPerPage = 15;
+        let currentFilter = 'ALL';
+
+        function renderCatalog() {
+            const grid = document.getElementById('monster-grid');
+            grid.innerHTML = '';
+
+            // Filter Data
+            let filtered = monsters;
+            if (currentFilter !== 'ALL') {
+                filtered = monsters.filter(m => m.element === currentFilter);
+            }
+
+            // Hitung Pagination
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = filtered.slice(start, end);
+
+            // Update Info Halaman
+            document.getElementById('page-info').innerText = `Page ${currentPage} / ${totalPages}`;
+            document.getElementById('btn-prev').disabled = (currentPage === 1);
+            document.getElementById('btn-next').disabled = (currentPage === totalPages || totalPages === 0);
+
+            // Render Kartu
+            pageItems.forEach(m => {
+                if (m.unlocked) {
+                    const link = document.createElement('a');
+                    link.href = `monster-detail.html?id=${m.id}`;
+                    link.style.textDecoration = 'none';
+                    
+                    link.innerHTML = `
+                        <div class="encyclo-card element-${m.element.toLowerCase()}">
+                            <span class="encyclo-monster-icon">${m.icon}</span>
+                            <span class="tier-badge tier-${m.tier}">${m.tier}</span>
+                            <span class="element-badge">${icons[m.element]}</span>
+                        </div>
+                    `;
+                    grid.appendChild(link);
+                } else {
+                    const lockedDiv = document.createElement('div');
+                    lockedDiv.className = 'encyclo-card locked';
+                    lockedDiv.innerHTML = `<div class="encyclo-lock">🔒</div>`;
+                    grid.appendChild(lockedDiv);
+                }
+            });
+
+            // Update Collection Count
+            const collected = monsters.filter(m => m.unlocked).length;
+            document.getElementById('collection-count').innerText = collected;
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderCatalog();
+        }
+
+        function filterMonsters(element) {
+            currentFilter = element;
+            currentPage = 1;
+            
+            // Update Active Button Style
+            document.querySelectorAll('.encyclo-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.includes(element) || (element === 'ALL' && btn.innerText === 'ALL')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            renderCatalog();
+        }
+
+        // Jalankan saat pertama kali load
+        renderCatalog();
+    </script>
 </body>
 </html>
