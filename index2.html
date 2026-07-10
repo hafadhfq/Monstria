@@ -2,97 +2,123 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monster Fight - Game Battle Online</title>
-    <link rel="stylesheet" href="/style2.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monster Fight - Game Monster Battle Online</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        /* Extra CSS khusus halaman login */
+        .landing-bg {
+            background: url('assets/ui/bg-login.jpg') center/cover no-repeat, var(--bg-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            padding: 20px;
+        }
+        
+        .logo-game {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-game img {
+            width: 200px;
+            max-width: 80%;
+            filter: drop-shadow(0 0 10px #ffd700);
+        }
+        
+        .login-card {
+            background: rgba(42, 24, 16, 0.95);
+            border: 3px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--bg-button);
+            border: 2px solid #674112;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .tab-btn.active {
+            background: #b98107;
+            border-color: var(--border-gold);
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-gold);
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            background: #1a0f08;
+            border: 2px solid #8b5a2b;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--border-gold);
+        }
+        
+        .footer-text {
+            text-align: center;
+            font-size: 11px;
+            color: #bdb8b0;
+            margin-top: 16px;
+        }
+        
+        .footer-text a {
+            color: var(--text-gold);
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">MONSTER FIGHT</div>
-        <div>
-            <a href="login.html" class="linkbar">Login</a>
-            <a href="register.html" class="linkbar">Daftar</a>
-        </div>
-    </div>
-
-    <div class="game-wrapper">
-        <!-- Hero Section -->
-        <div class="panel" style="text-align: center; padding: 40px 20px;">
-            <h1 style="font-size: 2.5em; color: var(--accent); text-shadow: 0 0 15px rgba(37,168,224,0.6); margin-bottom: 10px;">
-                KUMPULKAN MONSTERMU
-            </h1>
-            <p style="font-size: 1.2em; color: var(--text-dim); margin-bottom: 30px;">
-                Bertarung, level up, dan jadilah Master Monster terkuat!
-            </p>
-            <div style="max-width: 400px; margin: 0 auto; display: flex; gap: 10px;">
-                <a href="register.html" class="mpbutton" style="flex: 1;">MULAI MAIN</a>
-                <a href="#fitur" class="mpbutton" style="flex: 1; background: var(--bg-panel);">LIHAT FITUR</a>
+    <div class="landing-bg">
+        <div class="login-container">
+            <!-- Logo -->
+            <div class="logo-game">
+                <img src="assets/ui/logo.png" alt="Monster Fight">
+                <h1 class="text-gold mt-2" style="text-shadow: 2px 2px 0 #000; font-size: 24px;">
+                    MONSTER FIGHT
+                </h1>
+                <p class="text-muted text-sm">Battle • Collect • Evolve</p>
             </div>
-        </div>
 
-        <!-- Preview Monster -->
-        <div class="panel">
-            <h2 style="text-align: center; margin-bottom: 20px;">Monster Starter</h2>
-            <div class="monster-grid">
-                <div class="monster-card">
-                    <div class="level">Lv.5</div>
-                    <img src="https://via.placeholder.com/150x140/161b22/25A8E0?text=Flame+Drake" alt="Flame Drake">
-                    <div class="name">Flame Drake</div>
-                    <div class="stat-bar">
-                        <div class="fill hp" style="width: 100%"></div>
-                        <div class="text">HP: 150/150</div>
-                    </div>
-                </div>
-
-                <div class="monster-card">
-                    <div class="level">Lv.5</div>
-                    <img src="https://via.placeholder.com/150x140/161b22/3fb950?text=Aqua+Wolf" alt="Aqua Wolf">
-                    <div class="name">Aqua Wolf</div>
-                    <div class="stat-bar">
-                        <div class="fill hp" style="width: 100%"></div>
-                        <div class="text">HP: 140/140</div>
-                    </div>
-                </div>
-
-                <div class="monster-card">
-                    <div class="level">Lv.5</div>
-                    <img src="https://via.placeholder.com/150x140/161b22/f85149?text=Rock+Golem" alt="Rock Golem">
-                    <div class="name">Rock Golem</div>
-                    <div class="stat-bar">
-                        <div class="fill hp" style="width: 100%"></div>
-                        <div class="text">HP: 180/180</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fitur -->
-        <div class="panel" id="fitur">
-            <h2 style="text-align: center; margin-bottom: 20px;">Fitur Game</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                <div class="tanbox">
-                    <h3 style="color: var(--accent);">⚔️ PvP Battle</h3>
-                    <p>Lawan player lain real-time dan rebut rank tertinggi!</p>
-                </div>
-                <div class="tanbox">
-                    <h3 style="color: var(--success);">🐲 100+ Monster</h3>
-                    <p>Koleksi monster unik dengan skill dan evolusi berbeda.</p>
-                </div>
-                <div class="tanbox">
-                    <h3 style="color: var(--danger);">🏆 Tournament</h3>
-                    <p>Ikuti turnamen mingguan berhadiah item langka.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="shadowline"></div>
-        
-        <!-- CTA Bawah -->
-        <div class="panel" style="text-align: center;">
-            <h2>Siap Jadi Master?</h2>
-            <p style="color: var(--text-dim); margin: 10px 0 20px;">Daftar sekarang dan dapatkan monster rare gratis!</p>
-            <a href="register.html" class="mpbutton" style="max-width: 300px; margin: 0 auto;">DAFTAR GRATIS</a>
-        </div>
-    </div>
-</body>
-</html>
+            <!-- Login/Register Card -->
+            <div class="login-card">
+                <!-- Tab Login/Register -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" id="tab-login" onclick="showTab('login')">
+                        LOGIN
+                    </button>
+                    <button class="tab-btn
