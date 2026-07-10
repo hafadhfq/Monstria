@@ -65,70 +65,76 @@
     </div>
 
     <script>
-        // --- DATABASE GENERATOR DENGAN LOGIKA TIER ---
+        // --- DATABASE STATIS 250 MONSTER ---
         const elements = ['fire', 'water', 'earth', 'wind', 'light', 'dark'];
         const icons = {'fire': '🐉', 'water': '🐢', 'earth': '🦍', 'wind': '🦅', 'light': '🦄', 'dark': '👹'};
         
-        // Definisi Tier dan Probabilitas Evolusi
-        const tierConfig = [
-            { code: 'C', chance: 0 },   // Common: Tidak bisa evolusi
-            { code: 'U', chance: 0 },   // Uncommon: Tidak bisa evolusi
-            { code: 'R', chance: 0.2 }, // Rare: 20% bisa evolusi
-            { code: 'E', chance: 0.5 }, // Epic: 50% bisa evolusi
-            { code: 'L', chance: 0.8 }, // Legend: 80% bisa evolusi
-            { code: 'M', chance: 1.0 }  // Mythical: 100% bisa evolusi
-        ];
-
         let allMonsters = [];
 
-        // Generate 250 Monster Data
-        for (let i = 1; i <= 250; i++) {
-            let elIndex = i % 6;
-            let el = elements[elIndex];
+        // Fungsi Helper untuk membuat data monster
+        function createMonster(id, tier, elIndex, stars, canEvolve, isStage2 = false) {
+            let el = elements[elIndex % 6];
+            let name = `Monster ${el.charAt(0).toUpperCase() + el.slice(1)}-${id}`;
+            if (isStage2) name += " II";
             
-            // Tentukan Tier secara acak tapi berbobot (lebih banyak C/U di awal)
-            let tierIdx = Math.floor(Math.random() * tierConfig.length);
-            if (i > 200) tierIdx = Math.max(tierIdx, 3); // Monster ID tinggi cenderung tier tinggi
-            
-            let currentTier = tierConfig[tierIdx];
-            let canEvolveRaw = Math.random() < currentTier.chance;
+            // Simulasi: ID 1-30 dimiliki pemain
+            let owned = id <= 30; 
 
-            let name = `Monster ${el.charAt(0).toUpperCase() + el.slice(1)}-${i}`;
-            let isStage2 = false;
-
-            // Jika bisa evolusi dan ID-nya genap (simulasi sudah ada yang tahap 2)
-            if (canEvolveRaw && i % 2 === 0 && i > 10) {
-                name += " II";
-                isStage2 = true;
-            }
-
-            // Simulasi status pemain
-            let owned = i <= 25; // Pemain punya 25 monster pertama
-            
-            let stars = 1;
-            let canEvolve = false;
-
-            if (owned) {
-                if (isStage2) {
-                    stars = 3; // Tahap II biasanya bintang lebih penuh
-                } else if (canEvolveRaw) {
-                    stars = 1;
-                    canEvolve = true; // Bisa evolusi tapi masih tahap 1
-                } else {
-                    stars = (i % 3) + 1; // Random 1-3 bintang untuk yang mentok
-                }
-            }
-
-            allMonsters.push({
-                id: i,
+            return {
+                id: id,
                 name: name,
                 icon: icons[el],
                 element: el,
-                tier: currentTier.code,
+                tier: tier,
                 owned: owned,
                 stars: stars,
-                canEvolve: canEvolve
-            });
+                canEvolve: canEvolve && !isStage2 // Jika sudah stage 2, tidak bisa evolusi lagi di sistem ini
+            };
+        }
+
+        // --- GENERASI DATA 250 MONSTER SESUAI ATURAN TIER ---
+        let idCounter = 1;
+
+        // 1. TIER C (Common) - ID 1-50: Mostly Star 1, No Evo
+        for (let i = 0; i < 50; i++) {
+            let stars = (i < 40) ? 1 : (i < 48 ? 2 : 3); // 40x Star 1, 8x Star 2, 2x Star 3
+            allMonsters.push(createMonster(idCounter++, 'C', i, stars, false));
+        }
+
+        // 2. TIER U (Uncommon) - ID 51-100: Mix Star 1-2, No Evo
+        for (let i = 0; i < 50; i++) {
+            let stars = (i < 25) ? 1 : (i < 45 ? 2 : 3); // 25x Star 1, 20x Star 2, 5x Star 3
+            allMonsters.push(createMonster(idCounter++, 'U', i, stars, false));
+        }
+
+        // 3. TIER R (Rare) - ID 101-150: Mix Star 1-3, Can Evo
+        for (let i = 0; i < 50; i++) {
+            let stars = (i < 15) ? 1 : (i < 35 ? 2 : 3); 
+            let canEvo = (stars < 3); // Yang bintang 1 & 2 bisa evolusi
+            allMonsters.push(createMonster(idCounter++, 'R', i, stars, canEvo));
+        }
+
+        // 4. TIER E (Epic) - ID 151-200: Mix Star 2-3, Can Evo
+        for (let i = 0; i < 50; i++) {
+            let stars = (i < 10) ? 1 : (i < 30 ? 2 : 3);
+            let canEvo = (stars < 3);
+            allMonsters.push(createMonster(idCounter++, 'E', i, stars, canEvo));
+        }
+
+        // 5. TIER L (Legend) - ID 201-225: Star 3-4, Can Evo
+        for (let i = 0; i < 25; i++) {
+            let stars = (i < 5) ? 2 : (i < 15 ? 3 : 4);
+            let canEvo = (stars < 4);
+            // Beberapa kita buat Stage II
+            let isStage2 = (i >= 15); 
+            allMonsters.push(createMonster(idCounter++, 'L', i, stars, canEvo, isStage2));
+        }
+
+        // 6. TIER M (Mythical) - ID 226-250: Star 4, Max Power
+        for (let i = 0; i < 25; i++) {
+            let stars = 4; // Max star
+            let isStage2 = (i >= 10); // Setengahnya sudah bentuk II
+            allMonsters.push(createMonster(idCounter++, 'M', i, stars, false, isStage2));
         }
 
         // --- PAGINATION LOGIC ---
@@ -148,9 +154,7 @@
                 let cardContent = "";
                 
                 if (m.owned) {
-                    // Tampilkan indikator petir jika bisa evolusi tapi belum
                     let evoBadge = m.canEvolve ? `<div class="evo-indicator">⚡</div>` : "";
-                    let starStr = "⭐".repeat(m.stars);
                     
                     cardContent = `
                         <a href="monster-detail.html?id=${m.id}" style="text-decoration:none;">
