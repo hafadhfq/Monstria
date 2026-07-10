@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Fight - Game Battle Online</title>
+    <link rel="stylesheet" href="/style2.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">MONSTER FIGHT</div>
+        <div>
+            <a href="login.html" class="linkbar">Login</a>
+            <a href="register.html" class="linkbar">Daftar</a>
+        </div>
+    </div>
+
+    <div class="game-wrapper">
+        <!-- Hero Section -->
+        <div class="panel" style="text-align: center; padding: 40px 20px;">
+            <h1 style="font-size: 2.5em; color: var(--accent); text-shadow: 0 0 15px rgba(37,168,224,0.6); margin-bottom: 10px;">
+                KUMPULKAN MONSTERMU
+            </h1>
+            <p style="font-size: 1.2em; color: var(--text-dim); margin-bottom: 30px;">
+                Bertarung, level up, dan jadilah Master Monster terkuat!
+            </p>
+            <div style="max-width: 400px; margin: 0 auto; display: flex; gap: 10px;">
+                <a href="register.html" class="mpbutton" style="flex: 1;">MULAI MAIN</a>
+                <a href="#fitur" class="mpbutton" style="flex: 1; background: var(--bg-panel);">LIHAT FITUR</a>
+            </div>
+        </div>
+
+        <!-- Preview Monster -->
+        <div class="panel">
+            <h2 style="text-align: center; margin-bottom: 20px;">Monster Starter</h2>
+            <div class="monster-grid">
+                <div class="monster-card">
+                    <div class="level">Lv.5</div>
+                    <img src="https://via.placeholder.com/150x140/161b22/25A8E0?text=Flame+Drake" alt="Flame Drake">
+                    <div class="name">Flame Drake</div>
+                    <div class="stat-bar">
+                        <div class="fill hp" style="width: 100%"></div>
+                        <div class="text">HP: 150/150</div>
+                    </div>
+                </div>
+
+                <div class="monster-card">
+                    <div class="level">Lv.5</div>
+                    <img src="https://via.placeholder.com/150x140/161b22/3fb950?text=Aqua+Wolf" alt="Aqua Wolf">
+                    <div class="name">Aqua Wolf</div>
+                    <div class="stat-bar">
+                        <div class="fill hp" style="width: 100%"></div>
+                        <div class="text">HP: 140/140</div>
+                    </div>
+                </div>
+
+                <div class="monster-card">
+                    <div class="level">Lv.5</div>
+                    <img src="https://via.placeholder.com/150x140/161b22/f85149?text=Rock+Golem" alt="Rock Golem">
+                    <div class="name">Rock Golem</div>
+                    <div class="stat-bar">
+                        <div class="fill hp" style="width: 100%"></div>
+                        <div class="text">HP: 180/180</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fitur -->
+        <div class="panel" id="fitur">
+            <h2 style="text-align: center; margin-bottom: 20px;">Fitur Game</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div class="tanbox">
+                    <h3 style="color: var(--accent);">⚔️ PvP Battle</h3>
+                    <p>Lawan player lain real-time dan rebut rank tertinggi!</p>
+                </div>
+                <div class="tanbox">
+                    <h3 style="color: var(--success);">🐲 100+ Monster</h3>
+                    <p>Koleksi monster unik dengan skill dan evolusi berbeda.</p>
+                </div>
+                <div class="tanbox">
+                    <h3 style="color: var(--danger);">🏆 Tournament</h3>
+                    <p>Ikuti turnamen mingguan berhadiah item langka.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadowline"></div>
+        
+        <!-- CTA Bawah -->
+        <div class="panel" style="text-align: center;">
+            <h2>Siap Jadi Master?</h2>
+            <p style="color: var(--text-dim); margin: 10px 0 20px;">Daftar sekarang dan dapatkan monster rare gratis!</p>
+            <a href="register.html" class="mpbutton" style="max-width: 300px; margin: 0 auto;">DAFTAR GRATIS</a>
+        </div>
+    </div>
+</body>
+</html>
