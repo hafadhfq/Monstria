@@ -5,6 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Monster - Monstria</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tambahan CSS Khusus untuk Layout 30:70 */
+        .detail-split-container {
+            display: grid;
+            grid-template-columns: 3fr 7fr; /* Rasio 30:70 */
+            gap: 10px;
+            align-items: start;
+        }
+
+        /* Styling Kartu Visual (Sisi Kiri) */
+        .detail-visual-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4; /* Rasio kartu penuh */
+            border-radius: 8px;
+            border: 2px solid var(--gold3);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .detail-emoji {
+            font-size: 64px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6));
+            z-index: 2;
+        }
+
+        /* Badge di dalam Kartu */
+        .card-corner-badge {
+            position: absolute;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 10px;
+            color: #fff8df;
+            text-shadow: 0 1px 0 #000;
+            z-index: 5;
+            box-shadow: 0 2px 0 #1a1008;
+        }
+
+        .badge-rarity { top: 6px; right: 6px; }
+        .badge-element { bottom: 6px; left: 6px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.3); }
+
+        /* Styling Tabel Stats (Sisi Kanan) */
+        .stats-table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .stats-table-custom td {
+            padding: 6px;
+            border-bottom: 1px solid rgba(168, 132, 77, 0.3);
+            color: #4a321c;
+        }
+
+        .stats-table-custom td:first-child {
+            font-weight: bold;
+            color: #7c5a2d;
+            width: 40%;
+        }
+
+        .stats-table-custom td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #3a271a;
+        }
+
+        @media (max-width: 400px) {
+            .detail-split-container {
+                grid-template-columns: 1fr; /* Jadi tumpuk di layar sangat kecil */
+            }
+            .detail-visual-card {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -17,55 +98,49 @@
             </div>
         </nav>
 
-        <!-- Panel Detail Monster -->
+        <!-- Panel Utama Detail -->
         <div class="owned-monster-panel">
-            <div class="monster-title-bar">MONSTER DETAILS</div>
+            <div class="monster-title-bar">MONSTER INFORMATION</div>
 
-            <!-- Bagian Atas: Gambar & Info Dasar -->
-            <div class="owned-card">
-                <div class="owned-art element-fire" id="monster-bg">
-                    <span id="monster-icon" style="font-size: 48px;">🐉</span>
+            <!-- Container Split 30:70 -->
+            <div class="detail-split-container">
+                
+                <!-- SISI KIRI (30%): Visual Card -->
+                <div class="detail-visual-card element-fire" id="monster-bg">
+                    <span class="card-corner-badge badge-rarity tier-R" id="monster-tier">R</span>
+                    <span class="detail-emoji" id="monster-icon">🐉</span>
+                    <span class="card-corner-badge badge-element" id="monster-el-badge">🔥</span>
                 </div>
+
+                <!-- SISI KANAN (70%): Stats & Info Table -->
                 <div class="owned-info">
-                    <div class="owned-name-row">
-                        <span class="owned-name" id="monster-name">Drako The Red</span>
-                        <span class="tier-badge tier-R" id="monster-tier">R</span>
-                    </div>
-                    <div class="owned-meta">
-                        Level: <span id="monster-level">15</span> | Element: <span id="monster-element">Fire</span>
-                    </div>
-                    <div class="owned-stars" id="monster-stars">⭐⭐⭐</div>
-                    
-                    <!-- Stats Grid -->
-                    <div class="owned-stats">
-                        <div class="owned-stat">HP<br><b id="stat-hp">1200</b></div>
-                        <div class="owned-stat">ATK<br><b id="stat-atk">350</b></div>
-                        <div class="owned-stat">DEF<br><b id="stat-def">200</b></div>
-                        <div class="owned-stat">SPD<br><b id="stat-spd">95</b></div>
+                    <h2 style="margin: 0 0 5px 0; color: #4a321c; font-family: 'MedievalSharp'; font-size: 18px;" id="monster-name">Drako The Red</h2>
+                    <div style="color: #b88620; font-size: 12px; margin-bottom: 8px;" id="monster-stars">⭐⭐⭐</div>
+
+                    <table class="stats-table-custom">
+                        <tr><td>Level</td><td id="monster-level">15</td></tr>
+                        <tr><td>Element</td><td id="monster-element">Fire</td></tr>
+                        <tr><td>HP</td><td id="stat-hp">1200</td></tr>
+                        <tr><td>Attack</td><td id="stat-atk">350</td></tr>
+                        <tr><td>Defense</td><td id="stat-def">200</td></tr>
+                        <tr><td>Speed</td><td id="stat-spd">95</td></tr>
+                    </table>
+
+                    <div class="skill-box" style="margin-top: 10px;">
+                        <div class="skill-name" id="skill-name">Flame Breath</div>
+                        <div class="skill-effect" id="skill-desc">Menyerang semua musuh dengan api panas.</div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Bagian Skill -->
-            <div class="skill-box">
-                <div class="skill-name" id="skill-name">Flame Breath</div>
-                <div class="skill-effect" id="skill-desc">Menyerang semua musuh dengan api panas dan memberikan efek burn selama 2 turn.</div>
-                <div class="skill-level">Skill Level: 3/5</div>
-            </div>
-
-            <!-- Deskripsi Lore -->
-            <div class="info-strip">
-                "Drako adalah naga muda yang tinggal di kawah gunung berapi. Meskipun masih kecil, napasnya sudah bisa melelehkan besi."
             </div>
 
             <!-- Tombol Aksi -->
-            <div class="owned-action-row">
-                <button class="btn btn-blue" onclick="window.location.href='party.html'">ADD TO PARTY</button>
-                <button class="btn btn-red" onclick="alert('Fitur Sell belum tersedia!')">SELL</button>
+            <div class="owned-action-row" style="margin-top: 15px;">
+                <button class="btn btn-blue">LEVEL UP</button>
+                <button class="btn btn-red">SELL</button>
             </div>
         </div>
 
-        <button class="small-wap-btn" onclick="window.history.back()">⬅ KEMBALI</button>
+        <button class="small-wap-btn" onclick="window.history.back()">⬅ KEMBALI KE CATALOG</button>
 
         <!-- Footer -->
         <footer class="site-footer">
@@ -75,79 +150,39 @@
     </div>
 
     <script>
-        // Database Sederhana Monster (Nanti bisa diganti dengan API/Database sungguhan)
+        // Database Monster
         const monsters = {
-            "1": {
-                name: "Drako The Red",
-                icon: "🐉",
-                tier: "R",
-                tierClass: "tier-R",
-                element: "Fire",
-                elementClass: "element-fire",
-                level: 15,
-                stars: "⭐⭐⭐",
-                hp: 1200, atk: 350, def: 200, spd: 95,
-                skillName: "Flame Breath",
-                skillDesc: "Menyerang semua musuh dengan api panas dan memberikan efek burn.",
-                lore: "Drako adalah naga muda yang tinggal di kawah gunung berapi."
-            },
-            "2": {
-                name: "Aqua Turtle",
-                icon: "🐢",
-                tier: "U",
-                tierClass: "tier-U",
-                element: "Water",
-                elementClass: "element-water",
-                level: 10,
-                stars: "⭐⭐",
-                hp: 1500, atk: 150, def: 400, spd: 40,
-                skillName: "Water Shield",
-                skillDesc: "Meningkatkan defense tim sebesar 20% selama 3 turn.",
-                lore: "Kura-kura bijak yang membawa air suci dari danau terdalam."
-            },
-            "3": {
-                name: "Luna Pegasus",
-                icon: "🦄",
-                tier: "E",
-                tierClass: "tier-E",
-                element: "Light",
-                elementClass: "element-light",
-                level: 25,
-                stars: "⭐⭐⭐⭐",
-                hp: 900, atk: 500, def: 150, spd: 120,
-                skillName: "Holy Ray",
-                skillDesc: "Serangan cahaya suci yang sangat kuat terhadap elemen Dark.",
-                lore: "Makhluk mitologi yang hanya muncul saat bulan purnama."
-            }
+            "1": { name: "Drako The Red", icon: "🐉", tier: "R", tierClass: "tier-R", el: "Fire", elIcon: "🔥", elClass: "element-fire", level: 15, stars: "⭐⭐⭐", hp: 1200, atk: 350, def: 200, spd: 95, skill: "Flame Breath", desc: "Serangan api area." },
+            "2": { name: "Aqua Turtle", icon: "🐢", tier: "U", tierClass: "tier-U", el: "Water", elIcon: "💧", elClass: "element-water", level: 10, stars: "⭐⭐", hp: 1500, atk: 150, def: 400, spd: 40, skill: "Water Shield", desc: "Meningkatkan defense tim." },
+            "3": { name: "Luna Pegasus", icon: "🦄", tier: "E", tierClass: "tier-E", el: "Light", elIcon: "✨", elClass: "element-light", level: 25, stars: "⭐⭐⭐⭐", hp: 900, atk: 500, def: 150, spd: 120, skill: "Holy Ray", desc: "Serangan cahaya suci." },
+            "4": { name: "Zephyr Eagle", icon: "🦅", tier: "R", tierClass: "tier-R", el: "Wind", elIcon: "🌪️", elClass: "element-wind", level: 18, stars: "⭐⭐⭐", hp: 800, atk: 400, def: 100, spd: 150, skill: "Gale Force", desc: "Serangan cepat beruntun." },
+            "5": { name: "Gorok Titan", icon: "🦍", tier: "C", tierClass: "tier-C", el: "Earth", elIcon: "🌿", elClass: "element-earth", level: 8, stars: "⭐", hp: 1800, atk: 250, def: 300, spd: 30, skill: "Rock Throw", desc: "Melempar batu besar." },
+            "6": { name: "Shadow Demon", icon: "👹", tier: "M", tierClass: "tier-M", el: "Dark", elIcon: "🌑", elClass: "element-dark", level: 50, stars: "⭐⭐⭐⭐⭐", hp: 2500, atk: 800, def: 500, spd: 110, skill: "Abyssal Void", desc: "Menghisap nyawa musuh." }
         };
 
-        // Fungsi untuk mengambil ID dari URL (contoh: monster-detail.html?id=1)
         const urlParams = new URLSearchParams(window.location.search);
-        const monsterId = urlParams.get('id') || "1"; // Default ke ID 1 jika tidak ada ID
-        const data = monsters[monsterId];
+        const id = urlParams.get('id') || "1";
+        const data = monsters[id];
 
         if (data) {
-            // Update Tampilan HTML dengan Data
             document.getElementById('monster-name').innerText = data.name;
             document.getElementById('monster-icon').innerText = data.icon;
             document.getElementById('monster-tier').innerText = data.tier;
-            document.getElementById('monster-tier').className = `tier-badge ${data.tierClass}`;
-            document.getElementById('monster-element').innerText = data.element;
+            document.getElementById('monster-tier').className = `card-corner-badge badge-rarity ${data.tierClass}`;
+            document.getElementById('monster-el-badge').innerText = data.elIcon;
+            document.getElementById('monster-bg').className = `detail-visual-card ${data.elClass}`;
+            
             document.getElementById('monster-level').innerText = data.level;
+            document.getElementById('monster-element').innerText = data.el;
             document.getElementById('monster-stars').innerText = data.stars;
             
-            // Update Background Card sesuai elemen
-            document.getElementById('monster-bg').className = `owned-art ${data.elementClass}`;
-
-            // Update Stats
             document.getElementById('stat-hp').innerText = data.hp;
             document.getElementById('stat-atk').innerText = data.atk;
             document.getElementById('stat-def').innerText = data.def;
             document.getElementById('stat-spd').innerText = data.spd;
-
-            // Update Skill
-            document.getElementById('skill-name').innerText = data.skillName;
-            document.getElementById('skill-desc').innerText = data.skillDesc;
+            
+            document.getElementById('skill-name').innerText = data.skill;
+            document.getElementById('skill-desc').innerText = data.desc;
         }
     </script>
 </body>
