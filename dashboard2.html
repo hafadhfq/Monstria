@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - Monster Fight</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- NAVBAR -->
+        <div class="navbar">
+            <a class="nav-btn active" onclick="showPage('home')">
+                Home
+            </a>
+            <a class="nav-btn" onclick="showPage('monster')">
+                Monster
+                <span class="notif-dot" id="notif-monster"></span>
+            </a>
+            <a class="nav-btn" onclick="showPage('battle')">
+                Battle
+            </a>
+            <a class="nav-btn" onclick="showPage('shop')">
+                Shop
+            </a>
+            <a class="nav-btn" onclick="showPage('quest')">
+                Quest
+            </a>
+        </div>
+
+        <!-- STATUS BAR -->
+        <div class="status-bar">
+            <div class="level-badge" id="player-level">5</div>
+            <div class="energy-bar">
+                <div class="energy-fill" id="energy-fill" style="width: 85%"></div>
+            </div>
+            <div style="text-align: right; font-size: 12px; line-height: 1.2;">
+                <div class="text-gold"><span id="player-gold">1,250</span> G</div>
+                <div class="text-muted"><span id="player-diamond">25</span> ♦</div>
+            </div>
+        </div>
+
+        <!-- PAGE: HOME / DASHBOARD -->
+        <div id="page-home" class="page">
+            <!-- Profile Card -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="assets/ui/avatar.png" width="100%" style="border: 2px solid var(--border-gold); border-radius: 8px;">
+                        </div>
+                        <div class="col-9">
+                            <h3 class="text-gold" id="username">Trainer123</h3>
+                            <div class="text-sm mb-1">Level <span id="level-text">5</span></div>
+                            <div class="hp-bar">
+                                <div class="hp-fill" id="exp-bar" style="width: 60%"></div>
+                            </div>
+                            <div class="text-xs text-muted mt-1">EXP: 600/1000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action -->
+            <div class="card">
+                <div class="card-header">Quick Action</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <button class="btn btn-danger btn-block" onclick="showPage('battle')">
+                                ⚔️ BATTLE
+                            </button>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <button class="btn btn-primary btn-block" onclick="showPage('monster')">
+                                🐾 MONSTER
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-success btn-block" onclick="showPage('quest')">
+                                📜 QUEST
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-warning btn-block" onclick="showPage('shop')">
+                                🛒 SHOP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Monster -->
+            <div class="card">
+                <div class="card-header">Monster Utama</div>
+                <div class="card-body text-center">
+                    <img src="assets/monsters/starter.png" width="100" style="image-rendering: pixelated" class="mb-2">
+                    <h4 class="text-gold">Flamefox</h4>
+                    <div class="text-sm">Lv. 5 | Fire</div>
+                    <div class="hp-bar mt-2">
+                        <div class="hp-fill" style="width: 100%"></div>
+                    </div>
+                    <div class="text-xs mt-1">HP: 50/50</div>
+                    <button class="btn btn-default btn-sm mt-2" onclick="showPage('monster')">
+                        Ganti Monster
+                    </button>
+                </div>
+            </div>
+
+            <!-- News / Event -->
+            <div class="card">
+                <div class="card-header">News & Event</div>
+                <div class="card-body">
+                    <div class="box mb-2">
+                        <strong class="text-gold">🔥 Event: Double EXP Weekend!</strong>
+                        <p class="text-sm mt-1">Dapatkan 2x EXP dari semua battle sampai Minggu 23:59</p>
+                    </div>
+                    <div class="box">
+                        <strong class="text-gold">📢 Update v0.2</strong>
+                        <p class="text-sm mt-1">Monster baru + Map baru sudah tersedia!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Reward -->
+            <div class="card">
+                <div class="card-header">Daily Reward</div>
+                <div class="card-body text-center">
+                    <p class="text-sm mb-2">Login 7 hari berturut-turut untuk hadiah spesial!</p>
+                    <div class="row mb-2">
+                        <div class="col-3"><div class="box text-xs">Day 1<br>✓</div></div>
+                        <div class="col-3"><div class="box text-xs">Day 2<br>✓</div></div>
+                        <div class="col-3"><div class="box text-xs text-gold">Day 3<br>🎁</div></div>
+                        <div class="col-3"><div class="box text-xs">Day 4<br>?</div></div>
+                    </div>
+                    <button class="btn btn-success btn-block" id="btn-claim" onclick="claimDaily()">
+                        CLAIM REWARD
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: MONSTER - Kosong dulu, isi nanti -->
+        <div id="page-monster" class="page hidden">
+            <div class="card">
+                <div class="card-header">Koleksi Monster</div>
+                <div class="card-body text-center">
+                    <p>Halaman Monster coming soon...</p>
+                    <button class="btn btn-default mt-2" onclick="showPage('home')">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: BATTLE - Kosong dulu -->
+        <div id="page-battle" class="page hidden">
+            <div class="card">
+                <div class="card-header">Pilih Mode Battle</div>
+                <div class="card-body">
+                    <button class="btn btn-danger btn-block mb-2" onclick="startBattle('wild')">Wild Battle</button>
+                    <button class="btn btn-primary btn-block mb-2" onclick="startBattle('pvp')">PvP Arena</button>
+                    <button class="btn btn-default btn-block" onclick="showPage('home')">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: SHOP - Kosong dulu -->
+        <div id="page-shop" class="page hidden">
+            <div class="card">
+                <div class="card-header">Item Shop</div>
+                <div class="card-body text-center">
+                    <p>Halaman Shop coming soon...</p>
+                    <button class="btn btn-default mt-2" onclick="showPage('home')">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: QUEST - Kosong dulu -->
+        <div id="page-quest" class="page hidden">
+            <div class="card">
+                <div class="card-header">Quest Harian</div>
+                <div class="card-body text-center">
+                    <p>Halaman Quest coming soon...</p>
+                    <button class="btn btn-default mt-2" onclick="showPage('home')">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTBAR -->
+        <div class="footbar text-center">
+            <div class="text-xs mb-1">
+                <a href="#" class="text-white">Chat</a> • 
+                <a href="#" class="text-white">Rank</a> • 
+                <a href="#" class="text-white">Guild</a> • 
+                <a href="#" class="text-white" onclick="logout()">Logout</a>
+            </div>
+            <div class="text-muted text-xs">© 2026 Monster Fight Clone</div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
