@@ -1,0 +1,297 @@
+/***** GAME-STYLE.CSS - Monster Fight Theme *****/
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+
+:root {
+  --bg-dark: #0d1117;
+  --bg-panel: #161b22;
+  --border: #30363d;
+  --accent: #25A8E0;
+  --accent-hover: #1d8bb8;
+  --text-main: #e6edf3;
+  --text-dim: #8b949e;
+  --danger: #f85149;
+  --success: #3fb950;
+  --shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* ===== BASE RESET & LAYOUT ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Rajdhani', Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.game-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-bottom: 3px solid var(--accent);
+  padding: 12px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(37,168,224,0.6);
+}
+
+/* ===== PANEL & CONTAINER ===== */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: var(--shadow);
+}
+
+.shadowline {
+  margin: 1em 0;
+  padding: 0.5px;
+  border: 1px solid #DBDBDB;
+  box-shadow: inset 0 0 3px #E0E0E0;
+  border-radius: 1em;
+  width: auto;
+}
+
+.tanbox {
+  background-color: #d4cec2;
+  border: 1px solid #c4c0b7;
+  padding: 10px;
+  color: #0d1117;
+}
+
+/* ===== BUTTONS ===== */
+.mpbutton {
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 1.1em;
+  font-weight: 700;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px #000;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.mpbutton:hover {
+  opacity: 0.9;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(37,168,224,0.5);
+  transform: translateY(-2px);
+}
+
+.mpbutton:active {
+  transform: translateY(0);
+}
+
+.mpbutton a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.linkbar {
+  margin: 5px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 100%;
+  font-weight: normal;
+  text-shadow: 1px 1px 2px #222;
+  background: var(--accent);
+  box-shadow: 1px 1px 3px #000;
+  border-radius: 4px;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.linkbar:hover {
+  opacity: 0.8;
+  box-shadow: 1px 1px 6px var(--accent);
+  color: white;
+}
+
+.skill-button {
+  background: #21262d;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.skill-button:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 15px var(--accent);
+}
+
+/* ===== STAT BAR HP/MP ===== */
+.stat-bar {
+  width: 100%;
+  height: 22px;
+  background: #010409;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-bar .fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.stat-bar .fill.hp { background: linear-gradient(90deg, #da3633, #f85149); }
+.stat-bar .fill.mp { background: linear-gradient(90deg, #1f6feb, #25A8E0); }
+
+.stat-bar .text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 0.85em;
+  line-height: 22px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* ===== MONSTER CARD & GRID ===== */
+.monster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.monster-card {
+  background: linear-gradient(145deg, #1c2128, #0d1117);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.monster-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(37,168,224,0.4);
+  transform: scale(1.05);
+}
+
+.monster-card.selected {
+  border-color: var(--success);
+  box-shadow: 0 0 25px rgba(63,185,80,0.6);
+}
+
+.monster-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+}
+
+.monster-card .name {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 8px 0 4px;
+  color: var(--accent);
+}
+
+.monster-card .level {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--danger);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+/* ===== BATTLE ARENA ===== */
+.battle-arena {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at center, #161b22 0%, #0d1117 100%);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.battle-slot {
+  width: 200px;
+  height: 240px;
+}
+
+/* ===== ANIMASI BATTLE ===== */
+@keyframes attack-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@keyframes damage-popup {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+}
+
+.attacking {
+  animation: attack-shake 0.3s ease;
+}
+
+.damage-text {
+  position: absolute;
+  color: var(--danger);
+  font-size: 2em;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px #000;
+  animation: damage-popup 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ===== RESPONSIVE MOBILE ===== */
+@media screen and (max-width: 770px) {
+  .header { flex-direction: column; gap: 10px; }
+  .battle-arena { flex-direction: column; gap: 30px; }
+  .monster-grid { grid-template-columns: repeat(2, 1fr); }
+  .mpbutton { height: 50px; line-height: 50px; font-size: 1em; }
+  .battle-slot { width: 160px; height: 200px; }
+}
+
+@media screen and (max-width: 550px) {
+  .game-wrapper { padding: 10px; }
+  .monster-grid { grid-template-columns: 1fr; }
+}
