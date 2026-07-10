@@ -17,6 +17,11 @@
             position: absolute; inset: 0; background: rgba(0,0,0,0.7);
             display: grid; place-items: center; z-index: 4;
         }
+        .stage-badge {
+            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: #fff; padding: 2px 6px;
+            border-radius: 4px; font-size: 9px; font-weight: bold; border: 1px solid #555;
+        }
     </style>
 </head>
 <body>
@@ -27,10 +32,10 @@
         </nav>
 
         <div class="encyclo-panel">
-            <div class="encyclo-title-bar">MONSTER CATALOG (250)</div>
+            <div class="encyclo-title-bar">MONSTER CATALOG</div>
             
             <div class="encyclo-info">
-                Koleksi lengkap spesies Monstria. Perhatikan potensi evolusinya!
+                Temukan semua tahap evolusi monster! (Total Entries: <span id="total-count">0</span>)
             </div>
 
             <!-- Filter -->
@@ -52,7 +57,7 @@
             <!-- Pagination -->
             <div class="encyclo-pagination">
                 <button class="small-wap-btn" id="btn-prev" onclick="changePage(-1)">PREV</button>
-                <span class="page-info" id="page-info">Page 1 / 16</span>
+                <span class="page-info" id="page-info">Page 1 / --</span>
                 <button class="small-wap-btn" id="btn-next" onclick="changePage(1)">NEXT</button>
             </div>
         </div>
@@ -65,77 +70,72 @@
     </div>
 
     <script>
-        // --- DATABASE STATIS 250 MONSTER ---
+        // --- KONFIGURASI TIER & DISTRIBUSI MAX STAR ---
         const elements = ['fire', 'water', 'earth', 'wind', 'light', 'dark'];
         const icons = {'fire': '🐉', 'water': '🐢', 'earth': '🦍', 'wind': '🦅', 'light': '🦄', 'dark': '👹'};
         
+        // Aturan: Dari 20 monster, berapa yang Max Star 1, 2, atau 3
+        const tierRules = {
+            'C': { count: 20, dist: { 1: 10, 2: 6, 3: 4 } }, // Total 34 entri
+            'U': { count: 30, dist: { 1: 10, 2: 12, 3: 8 } }, // Total lebih banyak
+            'R': { count: 40, dist: { 2: 20, 3: 20 } },       // Minimal max star 2
+            'E': { count: 40, dist: { 3: 25, 4: 15 } },       // Minimal max star 3
+            'L': { count: 30, dist: { 3: 10, 4: 20 } },       // Legend/Mythical max 4
+            'M': { count: 20, dist: { 4: 20 } }                // Mythical pasti max 4
+        };
+
         let allMonsters = [];
+        let globalId = 1;
 
-        // Fungsi Helper untuk membuat data monster
-        function createMonster(id, tier, elIndex, stars, canEvolve, isStage2 = false) {
-            let el = elements[elIndex % 6];
-            let name = `Monster ${el.charAt(0).toUpperCase() + el.slice(1)}-${id}`;
-            if (isStage2) name += " II";
-            
-            // Simulasi: ID 1-30 dimiliki pemain
-            let owned = id <= 30; 
+        // Fungsi Generate Monster Berdasarkan Aturan
+        function generateMonsters() {
+            for (const [tier, rule] of Object.entries(tierRules)) {
+                let created = 0;
+                
+                // Loop untuk setiap kategori Max Star dalam tier tersebut
+                for (const [maxStarStr, amount] of Object.entries(rule.dist)) {
+                    const maxStar = parseInt(maxStarStr);
+                    
+                    for (let i = 0; i < amount; i++) {
+                        if (created >= rule.count) break;
+                        
+                        let elIndex = (globalId + i) % 6;
+                        let el = elements[elIndex];
+                        let baseName = `${el.charAt(0).toUpperCase() + el.slice(1)}-${globalId}`;
+                        
+                        // Buat entri untuk setiap tahap evolusi (I, II, III, dst)
+                        for (let stage = 1; stage <= maxStar; stage++) {
+                            let displayName = baseName;
+                            if (maxStar > 1) {
+                                // Konversi angka ke Romawi sederhana untuk nama
+                                const romans = ["", "I", "II", "III", "IV"];
+                                displayName += ` ${romans[stage]}`;
+                            }
 
-            return {
-                id: id,
-                name: name,
-                icon: icons[el],
-                element: el,
-                tier: tier,
-                owned: owned,
-                stars: stars,
-                canEvolve: canEvolve && !isStage2 // Jika sudah stage 2, tidak bisa evolusi lagi di sistem ini
-            };
+                            // Simulasi Kepemilikan: Hanya ID rendah yang dimiliki
+                            let owned = globalId <= 5; 
+
+                            allMonsters.push({
+                                id: globalId, // ID unik untuk link detail
+                                uniqueId: `${globalId}-${stage}`, // ID unik untuk grid
+                                name: displayName,
+                                icon: icons[el],
+                                element: el,
+                                tier: tier,
+                                stage: stage,
+                                maxStage: maxStar,
+                                owned: owned
+                            });
+                        }
+                        globalId++;
+                        created++;
+                    }
+                }
+            }
+            document.getElementById('total-count').innerText = allMonsters.length;
         }
 
-        // --- GENERASI DATA 250 MONSTER SESUAI ATURAN TIER ---
-        let idCounter = 1;
-
-        // 1. TIER C (Common) - ID 1-50: Mostly Star 1, No Evo
-        for (let i = 0; i < 50; i++) {
-            let stars = (i < 40) ? 1 : (i < 48 ? 2 : 3); // 40x Star 1, 8x Star 2, 2x Star 3
-            allMonsters.push(createMonster(idCounter++, 'C', i, stars, false));
-        }
-
-        // 2. TIER U (Uncommon) - ID 51-100: Mix Star 1-2, No Evo
-        for (let i = 0; i < 50; i++) {
-            let stars = (i < 25) ? 1 : (i < 45 ? 2 : 3); // 25x Star 1, 20x Star 2, 5x Star 3
-            allMonsters.push(createMonster(idCounter++, 'U', i, stars, false));
-        }
-
-        // 3. TIER R (Rare) - ID 101-150: Mix Star 1-3, Can Evo
-        for (let i = 0; i < 50; i++) {
-            let stars = (i < 15) ? 1 : (i < 35 ? 2 : 3); 
-            let canEvo = (stars < 3); // Yang bintang 1 & 2 bisa evolusi
-            allMonsters.push(createMonster(idCounter++, 'R', i, stars, canEvo));
-        }
-
-        // 4. TIER E (Epic) - ID 151-200: Mix Star 2-3, Can Evo
-        for (let i = 0; i < 50; i++) {
-            let stars = (i < 10) ? 1 : (i < 30 ? 2 : 3);
-            let canEvo = (stars < 3);
-            allMonsters.push(createMonster(idCounter++, 'E', i, stars, canEvo));
-        }
-
-        // 5. TIER L (Legend) - ID 201-225: Star 3-4, Can Evo
-        for (let i = 0; i < 25; i++) {
-            let stars = (i < 5) ? 2 : (i < 15 ? 3 : 4);
-            let canEvo = (stars < 4);
-            // Beberapa kita buat Stage II
-            let isStage2 = (i >= 15); 
-            allMonsters.push(createMonster(idCounter++, 'L', i, stars, canEvo, isStage2));
-        }
-
-        // 6. TIER M (Mythical) - ID 226-250: Star 4, Max Power
-        for (let i = 0; i < 25; i++) {
-            let stars = 4; // Max star
-            let isStage2 = (i >= 10); // Setengahnya sudah bentuk II
-            allMonsters.push(createMonster(idCounter++, 'M', i, stars, false, isStage2));
-        }
+        generateMonsters();
 
         // --- PAGINATION LOGIC ---
         let currentPage = 1;
@@ -154,12 +154,15 @@
                 let cardContent = "";
                 
                 if (m.owned) {
-                    let evoBadge = m.canEvolve ? `<div class="evo-indicator">⚡</div>` : "";
+                    // Indikator Evolusi: Muncul jika stage saat ini < maxStage
+                    let evoBadge = m.stage < m.maxStage ? `<div class="evo-indicator">⚡</div>` : "";
+                    let stageBadge = m.maxStage > 1 ? `<div class="stage-badge">Stage ${m.stage}</div>` : "";
                     
                     cardContent = `
-                        <a href="monster-detail.html?id=${m.id}" style="text-decoration:none;">
+                        <a href="monster-detail.html?id=${m.id}&stage=${m.stage}" style="text-decoration:none;">
                             <div class="encyclo-card element-${m.element}">
                                 ${evoBadge}
+                                ${stageBadge}
                                 <span class="encyclo-monster-icon">${m.icon}</span>
                                 <span class="tier-badge tier-${m.tier}">${m.tier}</span>
                                 <span class="element-badge">${icons[m.element]}</span>
